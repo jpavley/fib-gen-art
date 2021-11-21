@@ -6,11 +6,15 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let posX = canvas.width / 2;
-let posY = canvas.height / 2;
-let angle = 0;
+let number = 0;
+let scale = 10;
 
 function drawFlower() {
+  let angle = number * 1;
+  let radius = scale * Math.sqrt(number);
+  let posX = radius * Math.sin(angle) + canvas.width / 2;
+  let posY = radius * Math.cos(angle) + canvas.height / 2;
+
   ctx.fillStyle = 'red';
   ctx.strokeStyle = 'blue';
   ctx.lineWidth = 5;
@@ -19,22 +23,13 @@ function drawFlower() {
   ctx.closePath();
   ctx.fill();
   ctx.stroke();
+
+  number += 1;
 }
 
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  const posXrange = 5;
-  posX += posXrange * Math.sin(angle);
-
-  const posYrange = 5;
-  posY += posYrange * Math.cos(angle);
-
-  angle += 0.1;
-
+  //ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawFlower();
-
-
   requestAnimationFrame(animate);
 }
 
